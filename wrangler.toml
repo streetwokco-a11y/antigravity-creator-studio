@@ -1,0 +1,8 @@
+name = "antigravity-creator-studio"
+main = "worker.js"
+compatibility_date = "2024-03-01"
+account_id = "3d2e28d9f108c3e22f5872c71348c0a7"
+
+[assets]
+directory = "."
+binding = "ASSETS"
