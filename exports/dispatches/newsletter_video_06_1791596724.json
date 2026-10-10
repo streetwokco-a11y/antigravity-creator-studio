@@ -1,0 +1,7 @@
+{
+  "platform": "Beehiiv / Substack Webhook",
+  "episode": 6,
+  "staged_at": "2026-10-10T07:15:24.580036",
+  "newsletter_length_chars": 504,
+  "content": "# Developer Newsletter Issue #06\n\nHey Engineers,\n\nIn this issue, we dive into building autonomous AI agent workflows using Google Antigravity on Ubuntu Linux.\n\n### Key Highlights:\n- Scaffolding Next.js 15 + FastAPI applications in under 60 seconds.\n- Enforcing non-root container security with Hadolint rules.\n- Broadcast audio compliance (-14.0 LUFS) and PipeWire 60 fps capture.\n\n[Read full tutorial & watch video](#)\n[Clone GitHub Starter Repository](https://github.com/yourusername/antigravity-demo)\n"
+}

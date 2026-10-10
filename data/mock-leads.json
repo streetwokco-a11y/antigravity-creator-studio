@@ -1,0 +1,5 @@
+[
+  {"id": 1, "name": "Alex Mercer", "company": "DevOps Solutions", "email": "alex@devops.io", "status": "Qualified", "score": 94},
+  {"id": 2, "name": "Elena Rostova", "company": "CloudNative Systems", "email": "elena@cloudnative.tech", "status": "In Progress", "score": 88},
+  {"id": 3, "name": "Marcus Vance", "company": "Autonomous AI Labs", "email": "marcus@antigravity.ai", "status": "Converted", "score": 98}
+]

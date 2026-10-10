@@ -1,0 +1,14 @@
+{
+  "project": "Antigravity Multi-Agent Demo",
+  "status": "Ready for Video #1 Filming",
+  "active_agents": [
+    {"id": "agent-frontend", "role": "Autonomous Fullstack Builder", "task": "Scaffold UI components"},
+    {"id": "agent-backend", "role": "API Developer", "task": "Generate REST endpoints"},
+    {"id": "agent-docker", "role": "Docker Deploy Validator", "task": "Hadolint & container security audit"}
+  ],
+  "ide_settings": {
+    "font_size": 18,
+    "font_family": "JetBrains Mono",
+    "theme": "Dark Obsidian"
+  }
+}

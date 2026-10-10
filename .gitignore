@@ -1,0 +1,52 @@
+# Production .gitignore for Antigravity YouTube Channel Repository
+
+# Python & Virtual Environment
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+
+# Node.js & Next.js
+node_modules/
+.next/
+out/
+build/
+dist/
+.DS_Store
+
+# Databases & Local Logs
+*.db
+*.db-journal
+*.sqlite
+leads.db
+mock_db/*
+demo_logs/*
+.system_generated/
+
+# Video Exports & Raw Media (Large Binaries)
+exports/*.mp4
+exports/*.mkv
+exports/*.mov
+exports/*.zip
+exports/*.tar.gz
+*.mp4
+*.mkv
+
+# Local Logs
+logs/
+*.log
+
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+client_secrets.json
+oauth_token.json
+
+# Workspace Temp & Brain Artifacts (Antigravity System Internal)
+.agent
+.agent/*
+.agent/skills/*~
+*.pyc

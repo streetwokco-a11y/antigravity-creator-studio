@@ -1,0 +1,317 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "system": {
+    "name": "Antigravity Creator Studio",
+    "version": "1.0.0",
+    "description": "Comprehensive Data Flow Diagram (DFD) workflow specification linking frontend UI components, backend FastAPI endpoints, filesystem data stores, and external cloud APIs.",
+    "architecture": "Local Client-Server Desktop Web Application (FastAPI + Tailwind CSS + Subprocess Orchestration)"
+  },
+  "external_entities": [
+    {
+      "id": "E1",
+      "name": "Creator / Operator",
+      "type": "Human User",
+      "description": "Interacts with browser dashboard at http://localhost:8000 via point-and-click actions, reading teleprompter, dropping files, and triggering publishing."
+    },
+    {
+      "id": "E2",
+      "name": "NLE Video Editor",
+      "type": "External Software (DaVinci Resolve / CapCut / Premiere)",
+      "description": "Renders master H.264/H.265 MP4 video exports into the exports/ directory."
+    },
+    {
+      "id": "E3",
+      "name": "YouTube Data API v3",
+      "type": "External Cloud Service (Google Cloud)",
+      "description": "Receives authenticated multipart video uploads, metadata, tags, and thumbnails; returns live video ID and preview URLs."
+    },
+    {
+      "id": "E4",
+      "name": "Social Distribution Platforms",
+      "type": "External Channels (X, LinkedIn, Substack, GitHub)",
+      "description": "Receives repurposed technical carousels, newsletters, and open-source release manifests via system clipboard."
+    }
+  ],
+  "data_stores": [
+    {
+      "id": "DS1",
+      "name": "Skills & Agent Registry",
+      "path": ".agents/skills/",
+      "format": "Markdown with YAML Frontmatter",
+      "description": "22 canonical agent skills providing automated workflows and specialized prompts."
+    },
+    {
+      "id": "DS2",
+      "name": "Scripts & Production Assets",
+      "path": "video_XX_script.md, video_XX_packaging_kit.md, video_XX_ideation_matrix.md",
+      "format": "Markdown",
+      "description": "Full-length dual-column scripts, 60s hooks, 50 title angles, Midjourney prompts, and SEO tags."
+    },
+    {
+      "id": "DS3",
+      "name": "Video Exports Store",
+      "path": "exports/",
+      "format": "MP4 / MKV Containers (AAC / H.264 / H.265)",
+      "description": "Raw rendered videos from NLE editor and normalized broadcast-ready videos."
+    },
+    {
+      "id": "DS4",
+      "name": "Repurposed Asset Store",
+      "path": "repurposed/video_0X/",
+      "format": "Markdown (Carousel, Newsletter, Release Notes)",
+      "description": "Multi-platform derived marketing copy ready for 1-click clipboard copying."
+    },
+    {
+      "id": "DS5",
+      "name": "Fullstack Demo Database",
+      "path": "video_02_lead_triage/dev.db",
+      "format": "SQLite Relational Database",
+      "description": "Seed data and live lead triage records for screen recording demos."
+    }
+  ],
+  "processes": [
+    {
+      "id": "P1.0",
+      "name": "Pre-Flight Audit & Environment Calibration",
+      "frontend": {
+        "component": "Header Audit Trigger & Status Banner",
+        "action": "User clicks '▶ Run Pre-Flight Audit'",
+        "javascript_handler": "runHealthCheck()",
+        "api_call": {
+          "method": "GET",
+          "url": "/api/health-check"
+        }
+      },
+      "backend": {
+        "controller": "studio_server.py",
+        "endpoint": "/api/health-check",
+        "execution": [
+          {
+            "tool": "subprocess.run",
+            "command": "./scripts/master-pipeline.sh",
+            "purpose": "Validates 22 skills, .agent symlink, AGENTS.md baseline, Docker non-root security"
+          },
+          {
+            "tool": "subprocess.run",
+            "command": "./scripts/verify-export.sh --check-env",
+            "purpose": "Checks FFmpeg, FFprobe, and PipeWire 48kHz audio daemon"
+          }
+        ],
+        "response_payload": {
+          "success": "boolean (true if all return codes == 0)",
+          "output": "string (combined stdout/stderr logs)"
+        }
+      },
+      "data_flows": [
+        { "from": "E1", "to": "P1.0_Frontend", "data": "Click Event" },
+        { "from": "P1.0_Frontend", "to": "P1.0_Backend", "data": "HTTP GET /api/health-check" },
+        { "from": "P1.0_Backend", "to": "DS1", "data": "Verify 22 SKILL.md manifests" },
+        { "from": "P1.0_Backend", "to": "P1.0_Frontend", "data": "JSON {success, output}" },
+        { "from": "P1.0_Frontend", "to": "E1", "data": "Green/Red Status Banner & Console Output" }
+      ]
+    },
+    {
+      "id": "P2.0",
+      "name": "Teleprompter & Live Demo Staging",
+      "frontend": {
+        "component": "Teleprompter Overlay Modal & Demo Action Buttons",
+        "action": "Select episode -> '📜 Open Prompt' OR click 'Video #X Demo'",
+        "javascript_handler": "openTeleprompter() / triggerDemo(num)",
+        "api_calls": [
+          {
+            "method": "GET",
+            "url": "/api/teleprompter/{num}"
+          },
+          {
+            "method": "GET",
+            "url": "/api/trigger-demo/{num}"
+          }
+        ]
+      },
+      "backend": {
+        "controller": "studio_server.py",
+        "endpoints": [
+          {
+            "route": "/api/teleprompter/{num}",
+            "action": "Reads video_0{num}_script.md from workspace DS2",
+            "response": "PlainTextResponse (raw markdown script text)"
+          },
+          {
+            "route": "/api/trigger-demo/{num}",
+            "action": "subprocess.Popen(['./scripts/video-0{num}-demo.sh'])",
+            "response": "JSON {success: true, message: 'Demo script launched in background'}"
+          }
+        ]
+      },
+      "data_flows": [
+        { "from": "E1", "to": "P2.0_Frontend", "data": "Episode Selection (1..5) & Open Action" },
+        { "from": "P2.0_Frontend", "to": "P2.0_Backend", "data": "HTTP GET /api/teleprompter/{num}" },
+        { "from": "P2.0_Backend", "to": "DS2", "data": "Read video_0X_script.md" },
+        { "from": "DS2", "to": "P2.0_Backend", "data": "Raw script contents" },
+        { "from": "P2.0_Backend", "to": "P2.0_Frontend", "data": "Render word-by-word scrolling teleprompter" },
+        { "from": "P2.0_Frontend", "to": "P2.0_Backend", "data": "HTTP GET /api/trigger-demo/{num}" },
+        { "from": "P2.0_Backend", "to": "DS5", "data": "Execute script to boot FastAPI & seed SQLite DB" }
+      ]
+    },
+    {
+      "id": "P3.0",
+      "name": "Export Video QA & Audio Loudness Auto-Fixer",
+      "frontend": {
+        "component": "Video QA Field, Audit Button & Magic Auto-Fix Button",
+        "action": "Enter path -> click '🔍 Audit Video' OR click '🪄 Auto-Fix to -14 LUFS'",
+        "javascript_handler": "auditExport() / autoFixAudio()",
+        "api_calls": [
+          {
+            "method": "GET",
+            "url": "/api/audit?path={path}"
+          },
+          {
+            "method": "GET",
+            "url": "/api/autofix-audio?path={path}"
+          }
+        ]
+      },
+      "backend": {
+        "controller": "studio_server.py",
+        "endpoints": [
+          {
+            "route": "/api/audit",
+            "execution": "subprocess.run(['./scripts/verify-export.sh', target_file])",
+            "metrics_evaluated": [
+              "Video Codec (H.264 / H.265)",
+              "Resolution (1920x1080 / 3840x2160)",
+              "Framerate (Strict 60.0 fps lock)",
+              "EBU R128 Integrated Loudness (Target: -14.0 LUFS)",
+              "True Peak Ceiling (<= -1.5 dBFS)"
+            ],
+            "response": "JSON {output: string}"
+          },
+          {
+            "route": "/api/autofix-audio",
+            "execution": "ffmpeg -y -i input.mp4 -c:v copy -af loudnorm=I=-14.0:TP=-1.5:LRA=7.0 -c:a aac -b:a 320k output_normalized.mp4",
+            "response": "JSON {success: boolean, output_file: string}"
+          }
+        ]
+      },
+      "data_flows": [
+        { "from": "E2", "to": "DS3", "data": "Master render export file (e.g., video_01_master.mp4)" },
+        { "from": "E1", "to": "P3.0_Frontend", "data": "File path input (exports/video_01_master.mp4)" },
+        { "from": "P3.0_Frontend", "to": "P3.0_Backend", "data": "HTTP GET /api/audit?path=..." },
+        { "from": "P3.0_Backend", "to": "DS3", "data": "ffprobe stream specs & ffmpeg ebur128 analysis" },
+        { "from": "P3.0_Backend", "to": "P3.0_Frontend", "data": "JSON report (Integrated LUFS, True Peak, FPS)" },
+        { "from": "P3.0_Frontend", "to": "P3.0_Backend", "data": "HTTP GET /api/autofix-audio?path=..." },
+        { "from": "P3.0_Backend", "to": "DS3", "data": "Direct-stream copy video + audio loudnorm rewrite" },
+        { "from": "DS3", "to": "P3.0_Backend", "data": "Saved normalized file (video_01_master_normalized.mp4)" },
+        { "from": "P3.0_Backend", "to": "P3.0_Frontend", "data": "Auto-update input field to normalized file & re-audit" }
+      ]
+    },
+    {
+      "id": "P4.0",
+      "name": "1-Click YouTube Publishing Ingestion",
+      "frontend": {
+        "component": "Target Episode Dropdown, Privacy Selector, Publish Button",
+        "action": "Select options -> click '🚀 Publish to YouTube'",
+        "javascript_handler": "uploadVideo()",
+        "api_call": {
+          "method": "GET",
+          "url": "/api/upload?num={num}&path={path}&privacy={privacy}"
+        }
+      },
+      "backend": {
+        "controller": "studio_server.py",
+        "endpoint": "/api/upload",
+        "execution": [
+          {
+            "command": "./scripts/youtube-upload.sh {num} {path} --privacy {privacy}",
+            "delegates_to": "scripts/youtube-upload.py",
+            "actions": [
+              "Extracts SEO title, description, tags, timestamps from DS2 (packaging kit)",
+              "Loads OAuth2 credentials from client_secrets.json",
+              "Performs resumable multipart upload to YouTube Data API v3",
+              "Sets privacy status (unlisted / public)"
+            ]
+          }
+        ],
+        "response_payload": {
+          "success": "boolean",
+          "message": "string (Upload staging status & live URL link)"
+        }
+      },
+      "data_flows": [
+        { "from": "E1", "to": "P4.0_Frontend", "data": "Select Episode #, Privacy ('unlisted'), File Path" },
+        { "from": "P4.0_Frontend", "to": "P4.0_Backend", "data": "HTTP GET /api/upload?num=1&path=...&privacy=unlisted" },
+        { "from": "P4.0_Backend", "to": "DS2", "data": "Read title, description, and tags from video_01_packaging_kit.md" },
+        { "from": "P4.0_Backend", "to": "DS3", "data": "Stream normalized video binary" },
+        { "from": "P4.0_Backend", "to": "E3", "data": "HTTPS Resumable Multipart Upload (YouTube API v3)" },
+        { "from": "E3", "to": "P4.0_Backend", "data": "HTTP 200 OK + Live Video ID / URL" },
+        { "from": "P4.0_Backend", "to": "P4.0_Frontend", "data": "JSON {success: true, message: 'Upload Complete'}" },
+        { "from": "P4.0_Frontend", "to": "E1", "data": "Display live YouTube preview link on UI" }
+      ]
+    },
+    {
+      "id": "P5.0",
+      "name": "Multi-Platform Social Repurposing Engine",
+      "frontend": {
+        "component": "Repurpose Selector, Asset Generation Trigger, 3 Quick-Copy Buttons",
+        "action": "Click '⚡ Generate All Assets' -> Click '📋 Copy Carousel / Newsletter / Release'",
+        "javascript_handler": "generateRepurpose() / copyRepurposeAsset(type)",
+        "api_calls": [
+          {
+            "method": "GET",
+            "url": "/api/repurpose/{num}"
+          },
+          {
+            "method": "GET",
+            "url": "/api/repurpose-asset/{num}/{type}"
+          }
+        ]
+      },
+      "backend": {
+        "controller": "studio_server.py",
+        "endpoints": [
+          {
+            "route": "/api/repurpose/{num}",
+            "execution": "subprocess.run(['./scripts/repurpose-engine.sh', str(num)])",
+            "generates": [
+              "repurposed/video_0{num}/x_linkedin_carousel.md",
+              "repurposed/video_0{num}/developer_newsletter.md",
+              "repurposed/video_0{num}/github_release_notes.md"
+            ]
+          },
+          {
+            "route": "/api/repurpose-asset/{num}/{type}",
+            "execution": "Reads requested markdown file and returns raw content",
+            "response": "JSON {content: string}"
+          }
+        ]
+      },
+      "data_flows": [
+        { "from": "E1", "to": "P5.0_Frontend", "data": "Click '⚡ Generate All Multi-Platform Assets'" },
+        { "from": "P5.0_Frontend", "to": "P5.0_Backend", "data": "HTTP GET /api/repurpose/{num}" },
+        { "from": "P5.0_Backend", "to": "DS4", "data": "Execute repurpose-engine.sh & write markdown assets" },
+        { "from": "E1", "to": "P5.0_Frontend", "data": "Click '📋 Copy X/LinkedIn Carousel'" },
+        { "from": "P5.0_Frontend", "to": "P5.0_Backend", "data": "HTTP GET /api/repurpose-asset/{num}/carousel" },
+        { "from": "DS4", "to": "P5.0_Backend", "data": "Fetch x_linkedin_carousel.md" },
+        { "from": "P5.0_Backend", "to": "P5.0_Frontend", "data": "JSON {content: 'Slide 1: Hook...'}" },
+        { "from": "P5.0_Frontend", "to": "E4", "data": "navigator.clipboard.writeText(content) -> Ready for Paste" }
+      ]
+    }
+  ],
+  "dfd_level_summary": {
+    "level_0_context": {
+      "input_flows": [
+        "Creator Video Path & Episode Commands",
+        "NLE Master MP4 Video Exports",
+        "YouTube API Auth & Status Callbacks"
+      ],
+      "output_flows": [
+        "Broadcast Video to YouTube Data API v3",
+        "Repurposed Text Assets to Clipboard / Socials",
+        "Real-Time Teleprompter & QA Compliance Feedback"
+      ]
+    },
+    "level_1_process_count": 5,
+    "data_store_count": 5,
+    "external_entity_count": 4
+  }
+}

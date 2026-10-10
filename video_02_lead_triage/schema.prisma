@@ -1,0 +1,35 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./leads.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Lead {
+  id          Int      @id @default(autoincrement())
+  name        String
+  company     String
+  email       String   @unique
+  budget      Float
+  score       Int      @default(0)
+  status      String   @default("PENDING") // PENDING, QUALIFIED, DISQUALIFIED
+  createdAt   DateTime @default(now())
+}
+
+model TriageRule {
+  id          Int      @id @default(autoincrement())
+  minBudget   Float
+  category    String   // ENTERPRISE, SMB, SELF_SERVE
+  action      String   // ROUTE_TO_FOUNDER, AUTO_SCHEDULE, REJECT
+  active      Boolean  @default(true)
+}
+
+model AuditLog {
+  id          Int      @id @default(autoincrement())
+  action      String
+  leadId      Int?
+  details     String
+  timestamp   DateTime @default(now())
+}

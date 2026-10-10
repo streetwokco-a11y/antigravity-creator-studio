@@ -1,0 +1,149 @@
+[
+  {
+    "id": 1,
+    "name": "The Unfiltered Warning / Negative Constraint",
+    "regex_pattern": "(?i)\\b(stop\\s+(using|doing|writing|coding|prompting)|don't\\s+use|never\\s+use)\\b",
+    "structural_trigger": "Directly attacks an established practice to trigger loss aversion.",
+    "example": "Stop Using AI Like an Autocomplete Toy"
+  },
+  {
+    "id": 2,
+    "name": "The Speed / Timeframe Transformation",
+    "regex_pattern": "(?i)\\b(in\\s+\\d+\\s*(seconds|mins|minutes|hours|days)|in\\s+60s|in\\s+24h)\\b",
+    "structural_trigger": "Promises extreme time compression on an otherwise difficult engineering task.",
+    "example": "I Built a Full-Stack Next.js 15 App in 60 Seconds"
+  },
+  {
+    "id": 3,
+    "name": "The Extreme Benchmark / Clash",
+    "regex_pattern": "(?i)\\b([a-z0-9\\+\\.\\#\\-]+)\\s+vs\\.?\\s+([a-z0-9\\+\\.\\#\\-]+)|embarrassed\\s+by|benchmark\\s+clash\\b",
+    "structural_trigger": "Tribal tech showdown with an objective benchmark verdict.",
+    "example": "Google Antigravity vs Cursor: The Real Benchmark"
+  },
+  {
+    "id": 4,
+    "name": "The Counter-Intuitive Shift / Paradox",
+    "regex_pattern": "(?i)\\b(why\\s+i\\s+(stopped|quit|switched|regret|abandoned))\\b",
+    "structural_trigger": "Defies common developer logic by dropping a popular standard.",
+    "example": "Why I Stopped Using Microservices for 10x Performance"
+  },
+  {
+    "id": 5,
+    "name": "The Curiosity Gap / Secret Revelation",
+    "regex_pattern": "(?i)\\b(the\\s+secret|hidden\\s+(feature|architecture|trick)|nobody\\s+(knows|realizes)|what\\s+nobody\\s+tells\\s+you)\\b",
+    "structural_trigger": "Implies exclusive industry insight hidden from standard tutorials.",
+    "example": "The Hidden Architecture Behind 100k Agent Systems"
+  },
+  {
+    "id": 6,
+    "name": "The Authority / Industry Insider Challenge",
+    "regex_pattern": "(?i)\\b(why\\s+senior\\s+(engineers|devs)|how\\s+(google|netflix|uber|meta)\\s+actually|staff\\s+engineer)\\b",
+    "structural_trigger": "Leverages elite authority and organizational prestige.",
+    "example": "Why Senior Engineers Reject Traditional ORMs"
+  },
+  {
+    "id": 7,
+    "name": "The Death of X / Paradigm Shift",
+    "regex_pattern": "(?i)\\b([a-z0-9\\+\\.\\#\\-]+)\\s+(is\\s+dead|died|is\\s+officially\\s+over)|new\\s+style\\s+of|paradigm\\s+shift\\b",
+    "structural_trigger": "Pronounces the obsolescence of a ubiquitous language, tool, or methodology.",
+    "example": "Dockerfiles Are Dead: Here is What Replaces Them"
+  },
+  {
+    "id": 8,
+    "name": "The Zero-to-Hero Blueprint",
+    "regex_pattern": "(?i)\\b(from\\s+scratch|zero\\s+to\\s+(production|hero)|step[- ]by[- ]step\\s+guide)\\b",
+    "structural_trigger": "Exhaustive end-to-end operational roadmap eliminating knowledge gaps.",
+    "example": "Building an Autonomous Agent Fleet from Scratch"
+  },
+  {
+    "id": 9,
+    "name": "The Extreme Constraint Challenge",
+    "regex_pattern": "(?i)\\b(with\\s+\\$0|in\\s+1\\s+file|without\\s+(dependencies|internet|libraries)|under\\s+\\$10|hardcore|rm\\s+-rf|if\\s+(i|we)\\s+fail|delete\\s+my)\\b",
+    "structural_trigger": "Imposes radical artificial limitations to demonstrate raw mastery.",
+    "example": "I Built a Distributed Database in a Single C File"
+  },
+  {
+    "id": 10,
+    "name": "The Beginner to Advanced Spectrum",
+    "regex_pattern": "(?i)\\b(junior\\s+vs\\s+senior|levels\\s+of|bad\\s+code\\s+vs\\s+good\\s+code)\\b",
+    "structural_trigger": "Staged hierarchical progression highlighting professional differences.",
+    "example": "Junior vs Senior Agentic Prompting Workflows"
+  },
+  {
+    "id": 11,
+    "name": "The Single Tutorial Mythbuster",
+    "regex_pattern": "(?i)\\b(the\\s+only\\s+([a-z0-9\\s]+)\\s+(guide|video|tutorial)\\s+you\\s+(need|will\\s+ever\\s+need))\\b",
+    "structural_trigger": "Positions the video as the final, exhaustive resource on the topic.",
+    "example": "The Only Linux Hardening Guide You Need in 2026"
+  },
+  {
+    "id": 12,
+    "name": "The Unpopular Reality Check",
+    "regex_pattern": "(?i)\\b(the\\s+harsh\\s+truth|unpopular\\s+opinion|the\\s+ugly\\s+side\\s+of|what\\s+nobody\\s+says)\\b",
+    "structural_trigger": "Breaks through hype cycles with candid technical critique.",
+    "example": "The Harsh Truth About Full-Time AI Coding in Production"
+  },
+  {
+    "id": 13,
+    "name": "The Reverse Engineering Breakdown",
+    "regex_pattern": "(?i)\\b(how\\s+([a-z0-9\\s]+)\\s+(scaled|handles|built|engineered)\\s+\\d+)|how\\s+i\\s+reverse\\s+engineered\\b",
+    "structural_trigger": "Deconstructs large-scale architectures and proprietary mechanics.",
+    "example": "How Cloudflare Handles 60 Million Requests per Second"
+  },
+  {
+    "id": 14,
+    "name": "The 'Don't Do This' Gatekeeper",
+    "regex_pattern": "(?i)\\b(don't\\s+(learn|build|deploy|use)\\s+([a-z0-9\\s]+)\\s+until|avoid\\s+this)\\b",
+    "structural_trigger": "Pre-conditions entry into a skill to prevent costly beginner mistakes.",
+    "example": "Don't Learn Kubernetes in 2026 Until You Understand This"
+  },
+  {
+    "id": 15,
+    "name": "The 100 Days / Quantitative Experiment",
+    "regex_pattern": "(?i)\\b(i\\s+(tested|tried|coded|used)\\s+\\d+\\s+([a-z0-9\\s]+)\\s+for\\s+\\d+\\s+(days|hours|weeks))\\b",
+    "structural_trigger": "Quantifiable effort barrier proving deep, empirical experimentation.",
+    "example": "I Tested 25 AI Agents on 500 Production PRs"
+  },
+  {
+    "id": 16,
+    "name": "The Hidden Flaw Exposed",
+    "regex_pattern": "(?i)\\b(the\\s+(fatal|massive|huge)\\s+(flaw|vulnerability|problem|bug)\\s+in)\\b",
+    "structural_trigger": "Exposes an unrecognized vulnerability in a widely trusted system.",
+    "example": "The Massive Security Vulnerability in Next.js Server Actions"
+  },
+  {
+    "id": 17,
+    "name": "The Future Blueprint / If I Started Over",
+    "regex_pattern": "(?i)\\b(if\\s+i\\s+(started\\s+over|had\\s+to\\s+relearn)|roadmap\\s+for\\s+2026)\\b",
+    "structural_trigger": "Hindsight curriculum cutting out wasted effort for learners.",
+    "example": "If I Had to Relearn Backend Engineering in 2026"
+  },
+  {
+    "id": 18,
+    "name": "The Masterclass / Definitive Architecture",
+    "regex_pattern": "(?i)\\b(the\\s+complete\\s+([a-z0-9\\s]+)\\s+course|full\\s+architecture\\s+masterclass)\\b",
+    "structural_trigger": "University/enterprise-grade depth made freely accessible.",
+    "example": "The Complete Production Agent Architecture Masterclass"
+  },
+  {
+    "id": 19,
+    "name": "The Cost / Efficiency Arbitrage",
+    "regex_pattern": "(?i)\\b(how\\s+i\\s+saved\\s+(\\$|€|£)?\\d+|cut\\s+(my|our)\\s+bill\\s+by\\s+\\d+%)\\b",
+    "structural_trigger": "Hard financial returns achieved through technical optimization.",
+    "example": "How I Cut Our Cloudflare Bill by 85% with SQLite"
+  },
+  {
+    "id": 20,
+    "name": "The Tier List / Comparative Ranking",
+    "regex_pattern": "(?i)\\b(ranking\\s+every|tier\\s+list|from\\s+worst\\s+to\\s+best)\\b",
+    "structural_trigger": "Comprehensive taxonomy appealing to comparative debate.",
+    "example": "Ranking Every AI Code Editor from Worst to Best"
+  },
+  {
+    "id": 21,
+    "name": "The System Migration / Why I Left",
+    "regex_pattern": "(?i)\\b(why\\s+(i|we|everyone\\s+is)\\s+(left|leaving|migrated\\s+from))\\b",
+    "structural_trigger": "Documents a high-friction migration between platforms.",
+    "example": "Why We Left AWS for Pure Bare Metal in 2026"
+  }
+]

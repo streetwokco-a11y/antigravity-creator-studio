@@ -1,0 +1,542 @@
+[
+  {
+    "channel": "Fireship",
+    "title": "Docker in 100 Seconds",
+    "views": 1500000,
+    "url": "https://www.youtube.com/watch?v=sample_fs1"
+  },
+  {
+    "channel": "Fireship",
+    "title": "A $6.3B Model Just Got Embarrassed by Open Source",
+    "views": 1130000,
+    "url": "https://www.youtube.com/watch?v=sample_fs2"
+  },
+  {
+    "channel": "Fireship",
+    "title": "Git in 100 Seconds",
+    "views": 520000,
+    "url": "https://www.youtube.com/watch?v=sample_fs3"
+  },
+  {
+    "channel": "Fireship",
+    "title": "Rust in 100 Seconds",
+    "views": 510000,
+    "url": "https://www.youtube.com/watch?v=sample_fs4"
+  },
+  {
+    "channel": "Fireship",
+    "title": "TypeScript in 100 Seconds",
+    "views": 500000,
+    "url": "https://www.youtube.com/watch?v=sample_fs5"
+  },
+  {
+    "channel": "Fireship",
+    "title": "Kubernetes in 100 Seconds",
+    "views": 490000,
+    "url": "https://www.youtube.com/watch?v=sample_fs6"
+  },
+  {
+    "channel": "Fireship",
+    "title": "Linux in 100 Seconds",
+    "views": 485000,
+    "url": "https://www.youtube.com/watch?v=sample_fs7"
+  },
+  {
+    "channel": "Fireship",
+    "title": "Next.js in 100 Seconds",
+    "views": 482000,
+    "url": "https://www.youtube.com/watch?v=sample_fs8"
+  },
+  {
+    "channel": "Fireship",
+    "title": "PostgreSQL in 100 Seconds",
+    "views": 481000,
+    "url": "https://www.youtube.com/watch?v=sample_fs9"
+  },
+  {
+    "channel": "Fireship",
+    "title": "Redis in 100 Seconds",
+    "views": 480000,
+    "url": "https://www.youtube.com/watch?v=sample_fs10"
+  },
+  {
+    "channel": "Fireship",
+    "title": "Python in 100 Seconds",
+    "views": 480000,
+    "url": "https://www.youtube.com/watch?v=sample_fs11"
+  },
+  {
+    "channel": "Fireship",
+    "title": "Go in 100 Seconds",
+    "views": 480000,
+    "url": "https://www.youtube.com/watch?v=sample_fs12"
+  },
+  {
+    "channel": "Fireship",
+    "title": "GraphQL in 100 Seconds",
+    "views": 480000,
+    "url": "https://www.youtube.com/watch?v=sample_fs13"
+  },
+  {
+    "channel": "Fireship",
+    "title": "Vim in 100 Seconds",
+    "views": 479000,
+    "url": "https://www.youtube.com/watch?v=sample_fs14"
+  },
+  {
+    "channel": "Fireship",
+    "title": "WebAssembly in 100 Seconds",
+    "views": 478000,
+    "url": "https://www.youtube.com/watch?v=sample_fs15"
+  },
+  {
+    "channel": "Fireship",
+    "title": "SQLite in 100 Seconds",
+    "views": 475000,
+    "url": "https://www.youtube.com/watch?v=sample_fs16"
+  },
+  {
+    "channel": "Fireship",
+    "title": "C++ in 100 Seconds",
+    "views": 470000,
+    "url": "https://www.youtube.com/watch?v=sample_fs17"
+  },
+  {
+    "channel": "Fireship",
+    "title": "Kafka in 100 Seconds",
+    "views": 465000,
+    "url": "https://www.youtube.com/watch?v=sample_fs18"
+  },
+  {
+    "channel": "Fireship",
+    "title": "Tailwind in 100 Seconds",
+    "views": 460000,
+    "url": "https://www.youtube.com/watch?v=sample_fs19"
+  },
+  {
+    "channel": "Fireship",
+    "title": "Svelte in 100 Seconds",
+    "views": 450000,
+    "url": "https://www.youtube.com/watch?v=sample_fs20"
+  },
+  {
+    "channel": "Fireship",
+    "title": "Bun in 100 Seconds",
+    "views": 440000,
+    "url": "https://www.youtube.com/watch?v=sample_fs21"
+  },
+  {
+    "channel": "Fireship",
+    "title": "Supabase in 100 Seconds",
+    "views": 430000,
+    "url": "https://www.youtube.com/watch?v=sample_fs22"
+  },
+  {
+    "channel": "Fireship",
+    "title": "FastAPI in 100 Seconds",
+    "views": 420000,
+    "url": "https://www.youtube.com/watch?v=sample_fs23"
+  },
+  {
+    "channel": "Fireship",
+    "title": "Prisma in 100 Seconds",
+    "views": 410000,
+    "url": "https://www.youtube.com/watch?v=sample_fs24"
+  },
+  {
+    "channel": "Fireship",
+    "title": "Elixir in 100 Seconds",
+    "views": 400000,
+    "url": "https://www.youtube.com/watch?v=sample_fs25"
+  },
+  {
+    "channel": "Fireship",
+    "title": "Terraform in 100 Seconds",
+    "views": 390000,
+    "url": "https://www.youtube.com/watch?v=sample_fs26"
+  },
+  {
+    "channel": "Fireship",
+    "title": "Nginx in 100 Seconds",
+    "views": 380000,
+    "url": "https://www.youtube.com/watch?v=sample_fs27"
+  },
+  {
+    "channel": "Fireship",
+    "title": "Bash in 100 Seconds",
+    "views": 370000,
+    "url": "https://www.youtube.com/watch?v=sample_fs28"
+  },
+  {
+    "channel": "Fireship",
+    "title": "NeoVim in 100 Seconds",
+    "views": 360000,
+    "url": "https://www.youtube.com/watch?v=sample_fs29"
+  },
+  {
+    "channel": "Fireship",
+    "title": "Assembly in 100 Seconds",
+    "views": 350000,
+    "url": "https://www.youtube.com/watch?v=sample_fs30"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Hardcore Leetcode: rm -rf if I fail once",
+    "views": 695000,
+    "url": "https://www.youtube.com/watch?v=sample_pt1"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "TRYING JEV: The New Style of AI Coding",
+    "views": 174000,
+    "url": "https://www.youtube.com/watch?v=sample_pt2"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "React vs HTMX Drama",
+    "views": 95000,
+    "url": "https://www.youtube.com/watch?v=sample_pt3"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "NeoVim Setup 2026",
+    "views": 92000,
+    "url": "https://www.youtube.com/watch?v=sample_pt4"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Rust is Awesome",
+    "views": 90000,
+    "url": "https://www.youtube.com/watch?v=sample_pt5"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Go vs Rust Debate",
+    "views": 88000,
+    "url": "https://www.youtube.com/watch?v=sample_pt6"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Why JavaScript Is Weird",
+    "views": 86000,
+    "url": "https://www.youtube.com/watch?v=sample_pt7"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "AI Won't Take Your Job Yet",
+    "views": 85000,
+    "url": "https://www.youtube.com/watch?v=sample_pt8"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Linux Rice Review",
+    "views": 84000,
+    "url": "https://www.youtube.com/watch?v=sample_pt9"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Typescript Strict Mode",
+    "views": 83000,
+    "url": "https://www.youtube.com/watch?v=sample_pt10"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Debugging in Production",
+    "views": 82000,
+    "url": "https://www.youtube.com/watch?v=sample_pt11"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Junior Dev Mistakes",
+    "views": 82000,
+    "url": "https://www.youtube.com/watch?v=sample_pt12"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "C is Fast",
+    "views": 82000,
+    "url": "https://www.youtube.com/watch?v=sample_pt13"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Zig Language Review",
+    "views": 82000,
+    "url": "https://www.youtube.com/watch?v=sample_pt14"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Terminal Workflow Tips",
+    "views": 82000,
+    "url": "https://www.youtube.com/watch?v=sample_pt15"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Git Conflicts Explained",
+    "views": 81000,
+    "url": "https://www.youtube.com/watch?v=sample_pt16"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Docker vs Podman",
+    "views": 80000,
+    "url": "https://www.youtube.com/watch?v=sample_pt17"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Web Dev in 2026",
+    "views": 79000,
+    "url": "https://www.youtube.com/watch?v=sample_pt18"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Tailwind CSS Debate",
+    "views": 78000,
+    "url": "https://www.youtube.com/watch?v=sample_pt19"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Microservices Mistakes",
+    "views": 77000,
+    "url": "https://www.youtube.com/watch?v=sample_pt20"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Open Source Drama",
+    "views": 76000,
+    "url": "https://www.youtube.com/watch?v=sample_pt21"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Code Review Roasts",
+    "views": 75000,
+    "url": "https://www.youtube.com/watch?v=sample_pt22"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "My Favorite CLI Tools",
+    "views": 74000,
+    "url": "https://www.youtube.com/watch?v=sample_pt23"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Why I Use Arch Linux",
+    "views": 73000,
+    "url": "https://www.youtube.com/watch?v=sample_pt24"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Database Indexing Tips",
+    "views": 72000,
+    "url": "https://www.youtube.com/watch?v=sample_pt25"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Leetcode Hard Live",
+    "views": 71000,
+    "url": "https://www.youtube.com/watch?v=sample_pt26"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Frontend Fatigue",
+    "views": 70000,
+    "url": "https://www.youtube.com/watch?v=sample_pt27"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Backend Architecture Tips",
+    "views": 68000,
+    "url": "https://www.youtube.com/watch?v=sample_pt28"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Career Advice for Engineers",
+    "views": 65000,
+    "url": "https://www.youtube.com/watch?v=sample_pt29"
+  },
+  {
+    "channel": "The PrimeTime",
+    "title": "Software Dev Rant",
+    "views": 60000,
+    "url": "https://www.youtube.com/watch?v=sample_pt30"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "Why I Stopped Using Docker Compose in Production",
+    "views": 94000,
+    "url": "https://www.youtube.com/watch?v=sample_db1"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "Kubernetes Cluster Architecture",
+    "views": 29000,
+    "url": "https://www.youtube.com/watch?v=sample_db2"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "FastAPI Production Template",
+    "views": 28000,
+    "url": "https://www.youtube.com/watch?v=sample_db3"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "PostgreSQL Query Optimization",
+    "views": 27500,
+    "url": "https://www.youtube.com/watch?v=sample_db4"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "Terraform AWS ECS Setup",
+    "views": 27000,
+    "url": "https://www.youtube.com/watch?v=sample_db5"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "Redis Caching Strategies",
+    "views": 26500,
+    "url": "https://www.youtube.com/watch?v=sample_db6"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "Prometheus & Grafana Alerting",
+    "views": 26000,
+    "url": "https://www.youtube.com/watch?v=sample_db7"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "CI/CD Pipeline with GitHub Actions",
+    "views": 25500,
+    "url": "https://www.youtube.com/watch?v=sample_db8"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "Prisma vs Drizzle ORM",
+    "views": 25000,
+    "url": "https://www.youtube.com/watch?v=sample_db9"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "Next.js 15 Server Components",
+    "views": 24800,
+    "url": "https://www.youtube.com/watch?v=sample_db10"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "Tailwind CSS Best Practices",
+    "views": 24600,
+    "url": "https://www.youtube.com/watch?v=sample_db11"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "Building Scalable APIs",
+    "views": 24500,
+    "url": "https://www.youtube.com/watch?v=sample_db12"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "Microservices Event Bus",
+    "views": 24500,
+    "url": "https://www.youtube.com/watch?v=sample_db13"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "Kafka vs RabbitMQ",
+    "views": 24500,
+    "url": "https://www.youtube.com/watch?v=sample_db14"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "OAuth2 Security Flow",
+    "views": 24500,
+    "url": "https://www.youtube.com/watch?v=sample_db15"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "Linux Server Hardening",
+    "views": 24500,
+    "url": "https://www.youtube.com/watch?v=sample_db16"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "Docker Multi-Stage Builds",
+    "views": 24400,
+    "url": "https://www.youtube.com/watch?v=sample_db17"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "Env Variables in Production",
+    "views": 24200,
+    "url": "https://www.youtube.com/watch?v=sample_db18"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "PostgreSQL Connection Pooling",
+    "views": 24000,
+    "url": "https://www.youtube.com/watch?v=sample_db19"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "Monitoring with OpenTelemetry",
+    "views": 23800,
+    "url": "https://www.youtube.com/watch?v=sample_db20"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "Nginx Reverse Proxy Config",
+    "views": 23500,
+    "url": "https://www.youtube.com/watch?v=sample_db21"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "SSL Certificates with Let's Encrypt",
+    "views": 23000,
+    "url": "https://www.youtube.com/watch?v=sample_db22"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "Python Asyncio Deep Dive",
+    "views": 22500,
+    "url": "https://www.youtube.com/watch?v=sample_db23"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "Full Stack Project Ideas",
+    "views": 22000,
+    "url": "https://www.youtube.com/watch?v=sample_db24"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "DevOps Roadmap 2026",
+    "views": 21500,
+    "url": "https://www.youtube.com/watch?v=sample_db25"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "Clean Architecture in Python",
+    "views": 21000,
+    "url": "https://www.youtube.com/watch?v=sample_db26"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "REST API Design Rules",
+    "views": 20500,
+    "url": "https://www.youtube.com/watch?v=sample_db27"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "GraphQL Schema Design",
+    "views": 20000,
+    "url": "https://www.youtube.com/watch?v=sample_db28"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "Database Migration Best Practices",
+    "views": 19000,
+    "url": "https://www.youtube.com/watch?v=sample_db29"
+  },
+  {
+    "channel": "deaborndev",
+    "title": "Deploying Next.js on VPS",
+    "views": 18000,
+    "url": "https://www.youtube.com/watch?v=sample_db30"
+  }
+]

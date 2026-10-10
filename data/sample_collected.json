@@ -1,0 +1,16 @@
+[
+  { "channel": "DevOps Directive", "title": "Docker in 100 Seconds", "views": 450000, "url": "https://youtu.be/test1" },
+  { "channel": "DevOps Directive", "title": "Kubernetes Full Tutorial for Beginners", "views": 180000, "url": "https://youtu.be/test2" },
+  { "channel": "DevOps Directive", "title": "Terraform Infrastructure as Code Basics", "views": 75000, "url": "https://youtu.be/test3" },
+  { "channel": "DevOps Directive", "title": "Stop Using Docker Compose in Production", "views": 520000, "url": "https://youtu.be/test4" },
+  { "channel": "DevOps Directive", "title": "Ansible Configuration Management Crash Course", "views": 85000, "url": "https://youtu.be/test5" },
+
+  { "channel": "Modern Software Lab", "title": "FastAPI vs Django: The Real Benchmark", "views": 320000, "url": "https://youtu.be/test6" },
+  { "channel": "Modern Software Lab", "title": "Why I Stopped Using ORMs in Python", "views": 290000, "url": "https://youtu.be/test7" },
+  { "channel": "Modern Software Lab", "title": "Building a REST API with Flask", "views": 35000, "url": "https://youtu.be/test8" },
+  { "channel": "Modern Software Lab", "title": "Introduction to Python Virtual Environments", "views": 28000, "url": "https://youtu.be/test9" },
+  { "channel": "Modern Software Lab", "title": "Understanding Python Decorators", "views": 42000, "url": "https://youtu.be/test10" },
+
+  { "channel": "Under Indexed Channel", "title": "My First Coding Setup 2026", "views": 500, "url": "https://youtu.be/test11" },
+  { "channel": "Under Indexed Channel", "title": "Why Python is Cool", "views": 350, "url": "https://youtu.be/test12" }
+]
