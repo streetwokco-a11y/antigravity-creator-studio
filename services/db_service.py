@@ -65,29 +65,26 @@ def init_db():
         created_at TEXT NOT NULL
     );
 
-    -- 3-Agent Mission Control DAG state machine tables
+    -- 3-Agent Mission Control DAG state machine (v2 schema)
     CREATE TABLE IF NOT EXISTS dag_runs (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        mission_id TEXT NOT NULL UNIQUE,   -- UUID key for idempotent resume
-        task_description TEXT NOT NULL,
-        state TEXT NOT NULL DEFAULT 'PENDING',
-        -- States: PENDING | PLANNED | BUILT | AUDITING | SUCCESS | FAILED_DLQ | CRASHED
-        attempt_count INTEGER NOT NULL DEFAULT 0,
-        max_retries INTEGER NOT NULL DEFAULT 3,
-        last_failure_json TEXT,
-        plan_hash TEXT,                    -- SHA-256 of frozen plan for integrity gate
-        started_at TEXT NOT NULL,
-        updated_at TEXT NOT NULL,
-        completed_at TEXT
+        mission_id  TEXT PRIMARY KEY,
+        workflow_name TEXT NOT NULL,
+        current_state TEXT NOT NULL DEFAULT 'PENDING'
+            CHECK(current_state IN
+                ('PENDING','PLANNED','BUILT','AUDITING','SUCCESS','FAILED_DLQ','CRASHED')),
+        retry_count   INTEGER DEFAULT 0,
+        plan_hash     TEXT,
+        started_at    TEXT NOT NULL,
+        updated_at    TEXT NOT NULL,
+        error_summary TEXT
     );
 
     CREATE TABLE IF NOT EXISTS plan_contracts (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        plan_hash  TEXT PRIMARY KEY,
         mission_id TEXT NOT NULL,
-        plan_hash TEXT NOT NULL,           -- Immutability fingerprint
-        plan_json TEXT NOT NULL,           -- Frozen change plan contract
-        locked_at TEXT NOT NULL,
-        FOREIGN KEY (mission_id) REFERENCES dag_runs(mission_id)
+        plan_json  TEXT NOT NULL,
+        locked_at  TEXT NOT NULL,
+        FOREIGN KEY (mission_id) REFERENCES dag_runs(mission_id) ON DELETE CASCADE
     );
     """)
     conn.commit()
@@ -153,99 +150,89 @@ def fetch_latest_audits(limit: int = 5) -> List[Dict[str, Any]]:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Mission Control DAG Persistence Layer
+# Mission Control DAG Persistence Layer (v2)
 # ─────────────────────────────────────────────────────────────────────────────
-
-def create_dag_run(mission_id: str, task_description: str, max_retries: int = 3) -> str:
-    """Create a new DAG run record and return the mission_id.
-    Idempotent: if mission_id already exists, returns it unchanged.
-    """
-    conn = get_db_connection()
-    now = datetime.utcnow().isoformat()
-    try:
-        conn.execute(
-            """INSERT OR IGNORE INTO dag_runs
-               (mission_id, task_description, state, attempt_count, max_retries, started_at, updated_at)
-               VALUES (?, ?, 'PENDING', 0, ?, ?, ?)""",
-            (mission_id, task_description, max_retries, now, now)
-        )
-        conn.commit()
-    finally:
-        conn.close()
-    return mission_id
-
 
 def update_dag_state(
     mission_id: str,
-    state: str,
-    attempt_count: Optional[int] = None,
-    last_failure: Optional[Dict[str, Any]] = None,
-    plan_hash: Optional[str] = None,
-    completed: bool = False,
+    new_state: str,
+    retry_count: Optional[int] = None,
+    error: Optional[str] = None,
 ):
-    """Atomically transition a DAG run to a new state and record metadata."""
+    """Atomically transition a DAG run to new_state, optionally recording retry
+    count and error summary.  All writes go through this single function to
+    keep state transitions auditable and crash-safe.
+    """
     conn = get_db_connection()
     now = datetime.utcnow().isoformat()
-    fields = ["state = ?", "updated_at = ?"]
-    params: list = [state, now]
-
-    if attempt_count is not None:
-        fields.append("attempt_count = ?")
-        params.append(attempt_count)
-    if last_failure is not None:
-        fields.append("last_failure_json = ?")
-        params.append(json.dumps(last_failure))
-    if plan_hash is not None:
-        fields.append("plan_hash = ?")
-        params.append(plan_hash)
-    if completed:
-        fields.append("completed_at = ?")
-        params.append(now)
-
-    params.append(mission_id)
-    conn.execute(f"UPDATE dag_runs SET {', '.join(fields)} WHERE mission_id = ?", params)
+    if retry_count is not None:
+        conn.execute(
+            """UPDATE dag_runs
+               SET current_state = ?, retry_count = ?, error_summary = ?, updated_at = ?
+               WHERE mission_id = ?""",
+            (new_state, retry_count, error, now, mission_id),
+        )
+    else:
+        conn.execute(
+            "UPDATE dag_runs SET current_state = ?, updated_at = ? WHERE mission_id = ?",
+            (new_state, now, mission_id),
+        )
     conn.commit()
     conn.close()
 
 
-def save_frozen_plan(mission_id: str, plan: Dict[str, Any], plan_hash: str):
-    """Lock the Architect's change plan contract into plan_contracts and stamp the DAG run."""
+def store_plan_contract(mission_id: str, plan_hash: str, plan_dict: Dict[str, Any]):
+    """Persist the Architect's frozen plan contract and advance state to PLANNED.
+    INSERT OR IGNORE on plan_hash makes the operation idempotent.
+    """
     conn = get_db_connection()
     now = datetime.utcnow().isoformat()
     conn.execute(
-        """INSERT INTO plan_contracts (mission_id, plan_hash, plan_json, locked_at)
+        """INSERT OR IGNORE INTO plan_contracts
+           (plan_hash, mission_id, plan_json, locked_at)
            VALUES (?, ?, ?, ?)""",
-        (mission_id, plan_hash, json.dumps(plan), now)
+        (plan_hash, mission_id, json.dumps(plan_dict), now),
+    )
+    conn.execute(
+        """UPDATE dag_runs
+           SET plan_hash = ?, current_state = 'PLANNED', updated_at = ?
+           WHERE mission_id = ?""",
+        (plan_hash, now, mission_id),
     )
     conn.commit()
     conn.close()
-    # Stamp hash on the dag_run row so integrity can be re-verified on resume
-    update_dag_state(mission_id, "PLANNED", plan_hash=plan_hash)
 
 
-def load_frozen_plan(mission_id: str) -> Optional[Dict[str, Any]]:
-    """Load the most recently locked plan contract for a given mission."""
+def get_dag_checkpoint(mission_id: str) -> Optional[Dict[str, Any]]:
+    """JOIN dag_runs + plan_contracts to produce a single re-hydration record.
+    Returns None if the mission_id does not exist.
+    """
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(
-        "SELECT plan_json, plan_hash FROM plan_contracts WHERE mission_id = ? ORDER BY id DESC LIMIT 1",
-        (mission_id,)
+        """
+        SELECT d.*, p.plan_json
+        FROM dag_runs d
+        LEFT JOIN plan_contracts p ON d.plan_hash = p.plan_hash
+        WHERE d.mission_id = ?
+        """,
+        (mission_id,),
     )
     row = cursor.fetchone()
     conn.close()
-    if row:
-        return {"plan": json.loads(row["plan_json"]), "hash": row["plan_hash"]}
-    return None
+    return dict(row) if row else None
 
 
-def get_dag_run(mission_id: str) -> Optional[Dict[str, Any]]:
-    """Retrieve the current state of a DAG run for crash-resume."""
+def fetch_dag_runs(limit: int = 20) -> List[Dict[str, Any]]:
+    """Retrieve recent DAG runs ordered newest-first (dashboard telemetry)."""
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM dag_runs WHERE mission_id = ?", (mission_id,))
-    row = cursor.fetchone()
+    cursor.execute(
+        "SELECT * FROM dag_runs ORDER BY started_at DESC LIMIT ?", (limit,)
+    )
+    rows = [dict(r) for r in cursor.fetchall()]
     conn.close()
-    return dict(row) if row else None
+    return rows
 
 
 def fetch_dead_letter_items(limit: int = 20) -> List[Dict[str, Any]]:
@@ -254,18 +241,6 @@ def fetch_dead_letter_items(limit: int = 20) -> List[Dict[str, Any]]:
     cursor = conn.cursor()
     cursor.execute(
         "SELECT * FROM dead_letter_queue ORDER BY id DESC LIMIT ?", (limit,)
-    )
-    rows = [dict(r) for r in cursor.fetchall()]
-    conn.close()
-    return rows
-
-
-def fetch_dag_runs(limit: int = 20) -> List[Dict[str, Any]]:
-    """Retrieve recent DAG runs for the Mission Control dashboard panel."""
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute(
-        "SELECT * FROM dag_runs ORDER BY id DESC LIMIT ?", (limit,)
     )
     rows = [dict(r) for r in cursor.fetchall()]
     conn.close()

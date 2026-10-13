@@ -7,8 +7,9 @@ YPP Monetization Safeguards, Autonomous Task Scheduler, and Multi-Platform Direc
 import os
 import sys
 import json
+import asyncio
 import subprocess
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, BackgroundTasks
 from fastapi.responses import HTMLResponse, JSONResponse, PlainTextResponse
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
@@ -18,7 +19,10 @@ if WORKSPACE not in sys.path:
     sys.path.insert(0, WORKSPACE)
 
 # Initialize Persistence & Domain Services
-from services.db_service import init_db, fetch_latest_audits, log_run_start, log_run_finish
+from services.db_service import (
+    init_db, fetch_latest_audits, log_run_start, log_run_finish,
+    fetch_dag_runs, get_dag_checkpoint,
+)
 from services.media_service import audit_video_compliance, auto_normalize_audio
 from services.analytics_service import get_outliers
 from services.qa_service import run_full_preflight_audit
@@ -775,6 +779,77 @@ def api_scheduler_status():
 @app.get("/api/scheduler/run-now")
 async def api_scheduler_run_now(num: int = 2):
     return await scheduler.execute_hands_off_pipeline(num)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Mission Control DAG Endpoints
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _run_dag_in_background(mission_id: str, task: str, retries: int):
+    """Runs MissionControlDAG.execute() in a fresh event loop so it doesn't
+    block the FastAPI worker thread.  Imported lazily to avoid circular deps.
+    """
+    import asyncio as _aio
+    from scripts.mission_control_dag import MissionControlDAG
+    dag = MissionControlDAG(mission_id=mission_id, max_retries=retries)
+    _aio.run(dag.execute(task))
+
+
+@app.post("/api/mission/dag/trigger")
+def api_dag_trigger(
+    background_tasks: BackgroundTasks,
+    task: str = Query(..., description="Task description for the mission"),
+    retries: int = Query(3, ge=1, le=10, description="Max Builder→Auditor retry cycles"),
+):
+    """Spawn a new 3-agent Mission Control DAG run in the background.
+    Returns the mission_id immediately; poll /api/mission/dag/runs for status.
+    """
+    import uuid
+    mission_id = str(uuid.uuid4())
+    background_tasks.add_task(_run_dag_in_background, mission_id, task, retries)
+    return {
+        "success": True,
+        "mission_id": mission_id,
+        "task": task,
+        "max_retries": retries,
+        "message": "Mission Control DAG launched. Poll /api/mission/dag/runs for live state.",
+    }
+
+
+@app.post("/api/mission/dag/resume/{mission_id}")
+def api_dag_resume(mission_id: str, background_tasks: BackgroundTasks):
+    """Resume a crashed or stalled DAG mission from its last DB checkpoint."""
+    checkpoint = get_dag_checkpoint(mission_id)
+    if not checkpoint:
+        raise HTTPException(status_code=404, detail=f"No checkpoint for mission_id={mission_id}")
+
+    state = checkpoint["current_state"]
+    if state in ("SUCCESS", "FAILED_DLQ"):
+        return {
+            "success": False,
+            "message": f"Mission already in terminal state: {state}. No resume needed.",
+            "current_state": state,
+        }
+
+    def _resume(mid: str):
+        import asyncio as _aio
+        from scripts.mission_control_dag import MissionControlDAG
+        _aio.run(MissionControlDAG.resume_from_checkpoint(mid))
+
+    background_tasks.add_task(_resume, mission_id)
+    return {
+        "success": True,
+        "mission_id": mission_id,
+        "resumed_from": state,
+        "message": "Crash-resume launched. Poll /api/mission/dag/runs for live state.",
+    }
+
+
+@app.get("/api/mission/dag/runs")
+def api_dag_runs(limit: int = Query(20, ge=1, le=100)):
+    """Return recent DAG run telemetry for the Mission Control dashboard panel."""
+    return {"dag_runs": fetch_dag_runs(limit)}
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
